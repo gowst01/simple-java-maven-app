@@ -15,3 +15,13 @@ steps:
     mavenPomFile: 'pom.xml'
     goals: 'package'
     publishJUnitResults: true
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/target/*.jar'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'
